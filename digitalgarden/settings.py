@@ -66,7 +66,7 @@ ROOT_URLCONF = 'digitalgarden.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+	'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,6 +91,7 @@ DATABASES = {
                 'OPTIONS': {
 			'read_default_file': str(os.getenv('MYSQL_CONFIG_PATH')),
                         'init_command': 'SET default_storage_engine=INNODB',
+			'charset': 'utf8mb4',
                 },
         }
 }
