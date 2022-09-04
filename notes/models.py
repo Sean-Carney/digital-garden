@@ -1,6 +1,13 @@
 from django.db import models
 
+# Add the markdown field
 from markdownx.models import MarkdownxField
+
+# Add slugify to create pretty urls
+from django.template.defaultfilters import slugify
+
+# Add reverse for paths
+from django.urls import reverse
 
 class Note(models.Model):
 
@@ -28,7 +35,7 @@ class Note(models.Model):
 		CERTAIN = 8
 
 	title = models.CharField(unique=True, max_length=255)
-	slug = models.SlugField(unique=True, max_length=255)
+	slug = models.SlugField(unique=True, blank=True, max_length=255)
 
 	body = MarkdownxField()
 
@@ -43,6 +50,15 @@ class Note(models.Model):
 
 	def __str__(self):
 		return self.title
+
+	def get_absolute_url(self):
+		return reverse("note_detail", kwargs={"slug": self.slug})
+
+	def save(self, *args, **kwargs):
+
+		# Add slug to note
+		self.slug = slugify(self.title).replace("-", "_")
+		return super().save(*args, **kwargs)
 
 
 class NoteLink(models.Model):

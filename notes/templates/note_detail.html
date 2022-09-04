@@ -1,0 +1,6 @@
+{% load markdown_extras %}
+
+<div>
+	<h2>{{ object.title }}</h2>
+	<p>{{ object.body | markdown | safe }}</p>
+</div>

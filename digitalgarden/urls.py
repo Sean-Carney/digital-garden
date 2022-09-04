@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from markdownx import urls as markdownx
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
-	path('markdownx/', include('markdownx.urls')),
+	path('markdownx/', include(markdownx)),
+
+	path("", include("notes.urls")),
 ]
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
