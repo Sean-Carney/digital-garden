@@ -21,17 +21,27 @@
 				<li class="list-inline-item"><a href="/about_this_site/#importance">Importance</a>: {{ object.get_importance_display }}</li>
 				<li class="list-inline-item"><a href="/about_this_site/#likelihood">Likelihood</a>: {{ object.get_likelihood_display }}</li>
 				<li class="list-inline-item"><a href="/about_this_site/#last-updated">Last updated</a>: {{ object.date_updated }}</li>
-				<li class="list-inline-item"><a href="/about_this_site/#importance">Lifespan</a>: {{object.lifespan }}</li>
+				<li class="list-inline-item"><a href="/about_this_site/#lifespan">Lifespan</a>: {{object.lifespan }}</li>
 			</ul>
 		</small>
 
 		<div class='row'>
-			<div class='col-md-4'>
+			<div class='col-md-3'>
 				<p></p>
 				<p class='h2'>Contents</p>
 				<p>{{ object.body | toc | safe }}</p>
+	
+				{% if object.reference.all|length > 0 %}
+					<p class='h2'>Backlinks</p>
+					<p><ul>
+					{% for backlink in object.reference.all %}
+						<li><a href="/{{ backlink.source.slug }}">{{ backlink.source.title }}</a></li>
+					{% endfor %}
+					</ul></p>
+				{% endif %}
+				
 			</div>
-			<div class='col-md-8'>
+			<div class='col-md-9'>
 				<p>{{ object.body | markdown | safe }}</p>
 			</div>
 		</div>
