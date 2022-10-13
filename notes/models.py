@@ -15,7 +15,7 @@ import re
 class Note(models.Model):
 
 	class Maturity(models.IntegerChoices):
-		SEEDLINE = 1
+		SEEDLING = 1
 		SAPLING = 2
 		MATURE = 3
 		DECLINE = 4

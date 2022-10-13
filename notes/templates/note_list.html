@@ -1,6 +1,36 @@
-<h1>Notes</h1>
-{% for note in object_list %}
-	<ul>
-		<li><a href="{{ note.get_absolute_url }}">{{ note.title }}</a></li>
-	</ul>
-{% endfor %}
+{% extends "base_generic.html" %}
+
+{% block title %}
+
+        {{ object.title }} | Sean Carney's Notes
+
+{% endblock %}
+
+{% load markdown_extras %}
+
+{% block content %}
+
+	<h1>Sean Carney's Notes</h1>
+
+	<p>My collected thoughts on a wide variety of subjects.</p>
+
+	<table class="table">
+		<tr>
+			<th>Note</th>
+			<th><a href="/about_this_site/#maturity">Maturity</a></th>
+			<th><a href="/about_this_site/#importance">Importance</a></th>
+			<th><a href="/about_this_site/#likelihood">Likelihood</a></th>
+		</tr>
+
+		{% for note in object_list %}
+			<tr>
+				<td><a href="{{ note.get_absolute_url }}">{{ note.title }}</a></td>
+				<td>{{ note.get_maturity_display }}</td>
+				<td>{{ note.get_importance_display }}</td>
+				<td>{{ note.get_likelihood_display }}</td>
+			</tr>
+		{% endfor %}
+
+	</table>
+
+{% endblock %}
